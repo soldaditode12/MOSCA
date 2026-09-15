@@ -1,4 +1,6 @@
-import {applyHand, settleMatch} from './src/core.mjs';
+function validateBases(entries){return entries.filter(e=>e.playing).reduce((sum,e)=>sum+Number(e.bases||0),0)===5;}
+function applyHand(scores,entries){if(scores.length!==entries.length)throw new Error('Cantidad de jugadores inválida');if(!validateBases(entries))throw new Error('Las bases de los jugadores activos deben sumar 5');const next=[],events=[];for(let i=0;i<scores.length;i++){const s=Number(scores[i]),e=entries[i];let n=s,event='';if(!e.playing){if(s<=4){n=s+1;event='NO JUEGA +1';}else event='NO JUEGA';}else{const bases=Number(e.bases||0);n=Math.max(0,s-bases);if(bases===0){n+=5;event='CAPOTE';}if(Number(e.renuncie||0)>0){const pts=Number(e.renuncie);n+=pts;event=`RENUNCIE +${pts}`;}}next.push(n);events.push(event);}return {scores:next,events};}
+function settleMatch(scores,winnerIndex){if(scores[winnerIndex]!==0)throw new Error('El ganador debe estar en 0');const remaining=scores.reduce((sum,s,i)=>i===winnerIndex?sum:sum+Number(s),0);return scores.map((s,i)=>i===winnerIndex?remaining:-Number(s));}
 const KEY='la-mosca-v1';
 let playerCount=4; let pendingWinner=null;
 const $=s=>document.querySelector(s);
