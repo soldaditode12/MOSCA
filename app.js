@@ -1,3 +1,4 @@
+document.addEventListener('DOMContentLoaded',()=>{
 const KEY='la-mosca-v12';let playerCount=4,pendingWinner=null,pending=[];const $=s=>document.querySelector(s);const esc=s=>String(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
 function blank(names){return{version:12,names,match:1,maxMatches:5,scores:names.map(()=>15),hands:[],totals:names.map(()=>0),matchResults:[],price:0};}let state=null;function save(){localStorage.setItem(KEY,JSON.stringify(state))}function load(){try{return JSON.parse(localStorage.getItem(KEY))}catch{return null}}
 function renderNames(){$('#nameFields').innerHTML=Array.from({length:playerCount},(_,i)=>`<label class="nameRow"><span>${i+1}</span><input maxlength="14" placeholder="Jugador ${i+1}"></label>`).join('')}renderNames();document.querySelectorAll('.seg button').forEach(b=>b.onclick=()=>{playerCount=+b.dataset.count;document.querySelectorAll('.seg button').forEach(x=>x.classList.toggle('active',x===b));renderNames()});
@@ -22,3 +23,5 @@ $('#priceBtn').onclick=()=>{const v=prompt('Precio de cada punto ($):',state.pri
 function money(v){return '$ '+Math.abs(v).toLocaleString('es-AR')}
 function renderResults(){let html='';state.matchResults.forEach(r=>{html+=`<div class="resultBlock"><div class="resultTitle">Partido ${r.match}</div><div class="resultGrid ${state.names.length===4?'four':''}">${state.names.map((n,i)=>`<div><b>${esc(n)}</b><br><span class="${r.delta[i]>0?'positive':'negative'}">${r.delta[i]>0?'+':''}${r.delta[i]}</span></div>`).join('')}</div></div>`});$('#matchResults').innerHTML=html||'<p class="muted">Los resultados aparecerán al cerrar cada partido.</p>';$('#totals').innerHTML=`<div class="resultTitle">Acumulado · Punto: ${money(state.price)}</div>`+state.names.map((n,i)=>{const t=state.totals[i],m=t*state.price;return `<div class="totalRow"><b>${esc(n)}</b><strong class="${t>0?'positive':t<0?'negative':''}">${t>0?'+':''}${t} pts</strong><strong class="${m>0?'positive':m<0?'negative':''}">${m<0?'-':''}${money(m)}</strong></div>`}).join('')}
 state=load();render();if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js');
+
+});
