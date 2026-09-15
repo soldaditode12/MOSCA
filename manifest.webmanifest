@@ -1,1 +1,8 @@
-{"name":"La Mosca","short_name":"La Mosca","start_url":"./","display":"standalone","background_color":"#071d17","theme_color":"#0d3b2e"}
+{
+  "name": "La Mosca v1.2",
+  "short_name": "La Mosca",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#071d17",
+  "theme_color": "#0d3b2e"
+}

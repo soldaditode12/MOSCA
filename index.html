@@ -1,25 +1,12 @@
-<!doctype html>
-<html lang="es">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0d3b2e"><title>La Mosca</title>
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
-<header><div><h1>🪰 LA MOSCA</h1><small id="matchLabel">Partido 1 de 5</small></div><button id="newSeries" class="ghost">Nueva serie</button></header>
-<main>
-<section id="setup" class="card">
-<h2>Nueva serie</h2><p>Elegí 4 o 5 jugadores. Todos comienzan cada partido con 15 puntos.</p>
-<div class="seg"><button data-count="4" class="active">4 jugadores</button><button data-count="5">5 jugadores</button></div>
-<div id="nameFields"></div><button id="start" class="primary wide">Comenzar</button>
-</section>
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0d3b2e"><title>La Mosca v1.2</title><link rel="manifest" href="manifest.webmanifest"><link rel="stylesheet" href="style.css"></head><body>
+<header><div><h1>🪰 LA MOSCA</h1><small id="matchLabel">Nueva serie</small></div><button id="newSeries" class="ghost">Nueva serie</button></header><main>
+<section id="setup" class="card"><h2>Nueva serie</h2><p>Elegí 4 o 5 jugadores. Cada partido comienza en 15 puntos.</p><div class="seg"><button data-count="4" class="active">4 jugadores</button><button data-count="5">5 jugadores</button></div><div id="nameFields"></div><button id="start" class="primary wide">Comenzar</button></section>
 <section id="game" hidden>
-<div class="card tableCard"><div class="tableWrap"><table id="scoreTable"></table></div></div>
-<div class="card"><h2>Cargar mano</h2><div id="handInputs"></div><div class="sumline">Bases cargadas: <b id="baseSum">0</b> / 5</div><button id="saveHand" class="primary wide">Guardar mano</button><button id="undo" class="secondary wide">Deshacer última mano</button></div>
-<div class="card"><h2>Acumulado de la serie</h2><div id="totals"></div></div>
-</section>
-</main>
+<div class="players" id="players"></div><div class="hint">Tocá el puntaje para descontar 1 base · <b id="baseSum">0</b>/5 bases</div>
+<div class="card compact"><div class="bar"><b id="handLabel">Mano 1</b><button id="undo" class="secondary">↶ Deshacer</button><button id="saveHand" class="primary">Siguiente mano ▶</button></div></div>
+<div class="card"><div class="bar"><h2>Últimas 5 manos</h2><button id="fullHistory" class="secondary">Historial completo</button></div><div class="tableWrap"><table id="recentTable"></table></div></div>
+<div class="card"><div class="bar"><h2>Resultados</h2><button id="priceBtn" class="secondary">$ por punto</button></div><div id="matchResults"></div><div id="totals"></div></div>
+</section></main>
 <dialog id="winnerDialog"><div class="dialogBody"><h2>🏆 Partido terminado</h2><p id="winnerText"></p><div id="winnerChoices"></div><button id="closeMatch" class="primary wide">Cerrar partido</button></div></dialog>
-<script type="module" src="app.js"></script>
-</body></html>
+<dialog id="historyDialog"><div class="dialogBody"><div class="bar"><h2>Historial completo</h2><button id="closeHistory" class="secondary">Cerrar</button></div><p class="muted">Tocá “Editar” para corregir una mano. Se recalculan las siguientes.</p><div class="tableWrap tall"><table id="historyTable"></table></div></div></dialog>
+<script src="app.js"></script></body></html>
